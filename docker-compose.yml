@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: "fastapi_vision_app"
+    volumes:
+      - ./app:/app
+      - ./app/key.json:/root/app/key.json  # Google認証情報のパス
+    ports:
+      - 3000:3000
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /root/app/key.json
