@@ -5,6 +5,9 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 # Google Cloud Vision APIクライアントライブラリ
 RUN pip install google-cloud-vision
 
+# OpenAI のパッケージをインストール
+RUN pip install openai
+
 # アプリケーションコードのコピー
 COPY ./app /app
 
