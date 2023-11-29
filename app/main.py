@@ -1,6 +1,7 @@
 from typing import Optional
 from test import text_detection
 from fastapi import FastAPI
+from openai import openai_test
 
 app = FastAPI()
 
@@ -19,3 +20,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 def vision_test():
     detection_result = text_detection()
     return {"vision": "test", "detection_result": detection_result}
+
+@app.get("/generate")
+def openai_test():
+    return {"openai": "test"}
