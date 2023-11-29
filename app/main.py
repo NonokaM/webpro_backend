@@ -19,3 +19,5 @@ def read_item(item_id: int, q: Optional[str] = None):
 def vision_test():
     detection_result = text_detection()
     return {"vision": "test", "detection_result": detection_result}
+
+
