@@ -5,7 +5,6 @@ FROM tiangolo/uvicorn-gunicorn:python3.11-slim
 # Google Cloud Vision APIクライアントライブラリ
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
-RUN pip install google-cloud-vision
 
 # アプリケーションコードのコピー
 COPY ./app /app

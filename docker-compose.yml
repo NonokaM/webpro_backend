@@ -9,5 +9,7 @@ services:
       - ./app/key.json:/root/app/key.json  # Google認証情報のパス
     ports:
       - 3000:3000
+    env_file:
+      - .env
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /root/app/key.json
