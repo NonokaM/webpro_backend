@@ -1,2 +1,0 @@
-def testans():
-    return 'testans'

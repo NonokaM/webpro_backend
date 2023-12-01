@@ -2,7 +2,6 @@ from typing import Optional
 from fastapi import FastAPI
 from vision import text_detection
 from gpt import get_destination
-from testans import testans
 
 app = FastAPI()
 
@@ -26,9 +25,3 @@ def vision_test():
 def generate():
     response = get_destination()
     return {"openai": response}
-
-
-@app.get("/test")
-def test():
-    ans = testans()
-    return {"test": ans}
