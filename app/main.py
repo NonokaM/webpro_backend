@@ -1,10 +1,10 @@
 from typing import Optional
-from test import text_detection
 from fastapi import FastAPI
-from openai import openai_test
+from vision import text_detection
+from gpt import get_destination
+from testans import testans
 
 app = FastAPI()
-
 
 @app.get("/")
 def read_root():
@@ -21,6 +21,14 @@ def vision_test():
     detection_result = text_detection()
     return {"vision": "test", "detection_result": detection_result}
 
+
 @app.get("/generate")
-def openai_test():
-    return {"openai": "test"}
+def generate():
+    response = get_destination()
+    return {"openai": response}
+
+
+@app.get("/test")
+def test():
+    ans = testans()
+    return {"test": ans}
