@@ -1,9 +1,10 @@
 # FastAPIアプリケーション用のベースイメージ
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+FROM tiangolo/uvicorn-gunicorn:python3.11-slim
 
 # 必要な依存関係のインストール
 # Google Cloud Vision APIクライアントライブラリ
-RUN pip install google-cloud-vision
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # アプリケーションコードのコピー
 COPY ./app /app
