@@ -2,8 +2,18 @@ from typing import Optional
 from fastapi import FastAPI
 from vision import text_detection
 from gpt import get_destination
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# CORSエラー対応
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.get("/")
 def read_root():
