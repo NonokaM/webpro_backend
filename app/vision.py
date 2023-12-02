@@ -5,7 +5,7 @@ from google.cloud import vision
 client = vision.ImageAnnotatorClient()
 
 def text_detection():
-    file_name = os.path.abspath('resources/img.JPG')  # 画像ファイルのパス
+    file_name = os.path.abspath('resources/IMG_2665.jpg')  # 画像ファイルのパス
 
     with io.open(file_name, 'rb') as image_file:
         content = image_file.read()
