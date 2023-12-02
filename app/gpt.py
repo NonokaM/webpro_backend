@@ -16,16 +16,16 @@ def get_destination(input):
 
     response=client.chat.completions.create(
         model="gpt-4-1106-preview",
-        temperature=0.2,
+        temperature=0.1,
         top_p=0.5,
         max_tokens=2000,
         messages = [
             {"role": "system", "content":f"下記の文章から問題のみを抽出してください。出力は問題だけにして、他の文章は書かないでください。{input}"},
-            {"role": "user","content": "抽出した問題と同じような問題を1つだけ作ってください。また、作った問題の解答を問題に続けて書いてください。問題と解答は*で囲ってください。出力は問題だけにして、他の文章は書かないでください。"}]
+            {"role": "user","content": "抽出した問題と同じような問題を1つだけ作ってください。また、作った問題の解答を問題に続けて書いてください。ただし、「問題」のように必ず問題と解答にだけ「」で囲ってください。"}]
         )
     data=response.choices[0].message.content
     # return response
-    dest = data.split("*")
+    dest = data.split("「")[1].split("」")[0]
     return dest
     # required_text = dest.openai[1]
     # print(required_text)
