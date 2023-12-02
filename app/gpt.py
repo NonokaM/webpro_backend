@@ -1,10 +1,13 @@
 import os
+import re
 from openai import OpenAI
 from dotenv import load_dotenv
 
 client = OpenAI()
 
 load_dotenv()
+
+formatted_data = {}
 
 def get_destination(input):
     
@@ -20,13 +23,21 @@ def get_destination(input):
         top_p=0.5,
         max_tokens=2000,
         messages = [
-            {"role": "system", "content":f"下記の文章から問題のみを抽出してください。出力は問題だけにして、他の文章は書かないでください。{input}"},
-            {"role": "user","content": "抽出した問題と同じような問題を1つだけ作ってください。また、作った問題の解答を問題に続けて書いてください。ただし、「問題」のように必ず問題と解答にだけ「」で囲ってください。"}]
+            {"role": "system", "content": "あなたは大学の教授です。問題作成の役割を担っています。問題数は四つにしてください。"},
+            {"role": "user","content": f"下記の問題を元にして、新しい問題を作ってください。問題には'「」'、解答には'<>'でくくってください。{input}"}]
         )
+    
     data=response.choices[0].message.content
-    # return response
-    dest = data.split("「")[1].split("」")[0]
-    return dest
+    print(data)
+    pattern_double_quotes = r'「(.*?)」'
+    pattern_square_brackets = r'\<(.*?)\>'
+    data_q = re.findall(pattern_double_quotes, data)
+    data_a = re.findall(pattern_square_brackets, data)
+    a={"quesion":[data_q],"answer":[data_a]}
+    return a
+
+
+    # return dest
     # required_text = dest.openai[1]
     # print(required_text)
     
@@ -39,3 +50,6 @@ def get_destination(input):
     #     print("*****************")
     #     print("Don't worry : {}".format(ex))    
     #     return None
+    
+    
+    
