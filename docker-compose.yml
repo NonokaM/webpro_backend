@@ -6,10 +6,10 @@ services:
     container_name: "fastapi_vision_app"
     volumes:
       - ./app:/app
-      - ./app/key.json:/root/app/key.json  # Google認証情報のパス
+      - ./key.json:/root/key.json  # Google認証情報のパス
     ports:
-      - "10000:10000"
+      - 3000:3000
     env_file:
       - .env
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /root/app/key.json
+      GOOGLE_APPLICATION_CREDENTIALS: /root/key.json
