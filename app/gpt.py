@@ -24,17 +24,17 @@ def get_destination(input):
         max_tokens=2000,
         messages = [
             {"role": "system", "content": "あなたは大学の教授です。問題作成の役割を担っています。問題数は四つにしてください。"},
-            {"role": "user","content": f"下記の問題を元にして、新しい問題を作ってください。問題には'「」'、解答には'<>'でくくってください。{input}"}]
+            {"role": "user","content": f"下記の問題を元にして、新しい問題を作ってください。問題には'「」'、解答には'~'でくくってください。{input}"}]
         )
     
     data=response.choices[0].message.content
     print(data)
     pattern_double_quotes = r'「(.*?)」'
-    pattern_square_brackets = r'\<(.*?)\>'
+    pattern_square_brackets = r'~(.*?)~'
     data_q = re.findall(pattern_double_quotes, data)
-    data_a = re.findall(pattern_square_brackets, data)
+    data_a = re.findall(pattern_square_brackets, data,re.DOTALL)
     a={"quesion":[data_q],"answer":[data_a]}
-    return a
+    return a,data
 
 
     # return dest
