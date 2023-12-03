@@ -7,8 +7,6 @@ client = OpenAI()
 
 load_dotenv()
 
-formatted_data = {}
-
 def val_result_data(data):
     pattern_double_quotes = r'「(.*?)」'
     pattern_square_brackets = r'~(.*?)~'
@@ -35,5 +33,5 @@ def get_destination(input):
     
     data=response.choices[0].message.content
     data_q,data_a=val_result_data(data)
-    a={"quesion":[data_q],"answer":[data_a]}
-    return a,data
+    json={"quesion":[data_q],"answer":[data_a]}
+    return json
