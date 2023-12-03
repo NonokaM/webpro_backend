@@ -7,11 +7,15 @@ client = OpenAI()
 
 load_dotenv()
 
-formatted_data = {}
+def val_result_data(data):
+    pattern_double_quotes = r'「(.*?)」'
+    pattern_square_brackets = r'~(.*?)~'
+    data_q = re.findall(pattern_double_quotes, data)
+    data_a = re.findall(pattern_square_brackets, data,re.DOTALL)
+    return data_q,data_a
 
 def get_destination(input):
     
-    # print(input)
 
     client = OpenAI(
         api_key=os.environ['OPENAI_API_KEY'],
@@ -28,28 +32,6 @@ def get_destination(input):
         )
     
     data=response.choices[0].message.content
-    print(data)
-    pattern_double_quotes = r'「(.*?)」'
-    pattern_square_brackets = r'~(.*?)~'
-    data_q = re.findall(pattern_double_quotes, data)
-    data_a = re.findall(pattern_square_brackets, data,re.DOTALL)
-    a={"quesion":[data_q],"answer":[data_a]}
-    return a,data
-
-
-    # return dest
-    # required_text = dest.openai[1]
-    # print(required_text)
-    
-    # try:
-    #     dest = data.split("*")
-    #     return dest["openai"][1]
-
-    # except IndexError as ex:
-    #     print("説明: " + data)
-    #     print("*****************")
-    #     print("Don't worry : {}".format(ex))    
-    #     return None
-    
-    
-    
+    data_q,data_a=val_result_data(data)
+    json={"quesion":[data_q],"answer":[data_a]}
+    return json
